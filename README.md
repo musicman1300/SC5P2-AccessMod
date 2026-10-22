@@ -1,21 +1,25 @@
 # Space Channel 5 Part 2 Access Mod
 
-A screen reader accessibility mod for the Steam version of Space Channel 5 Part 2. Download the zip from the [latest release](../../releases/latest), unzip it, and run install.bat from inside the unzipped folder.
+A screen reader accessibility mod for the Steam version of Space Channel 5 Part 2. It works with both NVDA and JAWS natively, and falls back to the Windows voice if neither is running. Download the zip from the [latest release](../../releases/latest), unzip it, and run install.bat from inside the unzipped folder.
 
 ```
-Space Channel 5 Part 2 Access Mod 1.0.3
+Space Channel 5 Part 2 Access Mod 1.0.4
 =======================================
 
 A screen reader accessibility mod for Space Channel 5 Part 2 (Steam, PC).
 It speaks the menus, captions, prompts and results the game shows, adds
 audio cues for things sighted players see, and remaps Xbox controller buttons.
-It changes no game files on disk; it is a single winmm.dll placed next to the game.
+It changes no game files on disk; it is a winmm.dll (plus NVDA's controller
+client DLL) placed next to the game.
 
 Requirements
 - Space Channel 5 Part 2, Steam version (Windows).
-- Speech: JAWS (through its COM interface), or the Windows SAPI voice, which is
-  used automatically when JAWS is not running. NVDA is not spoken to directly;
-  NVDA users get the Windows SAPI voice.
+- Speech: JAWS and NVDA are both supported natively. If JAWS is running, the
+  mod speaks through JAWS (its COM interface). Otherwise, if NVDA is running, it
+  speaks through NVDA (nvdaControllerClient.dll, included). Otherwise it uses
+  the Windows SAPI voice. If nvdaControllerClient.dll is missing, the mod still
+  works and uses JAWS or the Windows voice.
+  To force one, set speech_backend in SC5_config.ini to jaws, nvda or sapi.
 - An Xbox-style controller or DualShock 4 is recommended. Keyboard works too.
 
 Install
@@ -23,13 +27,13 @@ Install
   If it can't, drag the game folder onto install.bat, or run:
     install.bat "C:\path\to\Space Channel 5 Part 2"
   Any existing winmm.dll in the game folder is backed up as winmm.dll.bak.
-- Manual way: copy winmm.dll and SC5_config.ini into the folder that has
+- Manual way: copy winmm.dll, nvdaControllerClient.dll and SC5_config.ini into the folder that has
   "Space Channel 5 Part 2.exe".
 
 Uninstall
-- Run uninstall.bat (same folder options as install). It removes winmm.dll and
-  SC5_config.ini and restores winmm.dll.bak if there was one.
-- Or delete winmm.dll and SC5_config.ini from the game folder.
+- Run uninstall.bat (same folder options as install). It removes winmm.dll,
+  nvdaControllerClient.dll and SC5_config.ini and restores winmm.dll.bak if there was one.
+- Or delete winmm.dll, nvdaControllerClient.dll and SC5_config.ini from the game folder.
 
 Keys (only while the game window is in front)
   F1   Help: lists the mod keys and whether each one is on or off.
@@ -92,6 +96,11 @@ Bug reports
   SC5_log.txt from the game folder. Turning logging on again adds to the same file. The log records only game keys
   (arrows, Enter, Space, Escape, Tab, S, D) while the game has focus.
 
+Changes in 1.0.4
+- New: native NVDA speech. When NVDA is running (and JAWS is not), speech goes
+  through NVDA instead of the Windows voice. Interrupting works the same way
+  as with JAWS.
+
 Changes in 1.0.3
 - Fixed: the first page of the Report 6 staff credits (the voice cast) was not read.
 
@@ -103,4 +112,14 @@ Changes in 1.0.1
   "Original game developed by SEGA"). Each credit line is now read once.
 
 License: MIT (see LICENSE). Not affiliated with SEGA. Contains no game files.
+
+Third-party notice
+- nvdaControllerClient.dll (32-bit) is the NVDA Controller Client from
+  NV Access Limited, included unmodified from the NVDA 2026.2 controller client
+  package. It is licensed under the GNU Lesser General Public License,
+  version 2.1 (see NVDA_CONTROLLER_LICENSE.txt). Its source code is available
+  from NV Access at https://github.com/nvaccess/nvda (nvdaHelper folder).
+  You may replace it with any compatible version of the DLL.
+  NVDA is a trademark of NV Access Limited. This mod is not affiliated with
+  NV Access.
 ```
