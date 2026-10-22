@@ -1,9 +1,9 @@
 # Space Channel 5 Part 2 Access Mod
 
-A screen reader accessibility mod for the Steam version of Space Channel 5 Part 2. It works with both NVDA and JAWS natively, and falls back to the Windows voice if neither is running. Download the zip from the [latest release](../../releases/latest), unzip it, and run install.bat from inside the unzipped folder.
+A screen reader accessibility mod for the Steam version of Space Channel 5 Part 2. It works with both NVDA and JAWS natively, and falls back to the Windows voice if neither is running. Download the zip from the [latest release](../../releases/latest), unzip it, and run install.bat from inside the unzipped folder. The installer also creates a desktop shortcut called 'Space Channel 5 Part 2 No Launcher' that opens the game directly, skipping Steam's launcher, which screen readers can't read.
 
 ```
-Space Channel 5 Part 2 Access Mod 1.0.4
+Space Channel 5 Part 2 Access Mod 1.0.5
 =======================================
 
 A screen reader accessibility mod for Space Channel 5 Part 2 (Steam, PC).
@@ -29,6 +29,24 @@ Install
   Any existing winmm.dll in the game folder is backed up as winmm.dll.bak.
 - Manual way: copy winmm.dll, nvdaControllerClient.dll and SC5_config.ini into the folder that has
   "Space Channel 5 Part 2.exe".
+
+Starting without the Steam launcher
+- When you press Play in Steam, the game first opens a launcher. That launcher
+  is a graphics window that screen readers can't read.
+- install.bat makes a desktop shortcut called
+  "Space Channel 5 Part 2 No Launcher" that opens the game directly. It also
+  puts a file called steam_appid.txt (containing 71260) in the game folder,
+  which stops the game from restarting itself through Steam.
+- Steam must be running when you use the shortcut.
+- Starting the game from the Steam library (Play) still opens the launcher.
+- The launcher is skipped from then on, so if you want to change its graphics
+  options, do that first (with sighted help if needed).
+- To do it by hand: in the game folder, create a plain text file named
+  steam_appid.txt that contains only 71260 (make sure Windows does not name it
+  steam_appid.txt.txt). Then make a shortcut to "Space Channel 5 Part 2.exe"
+  in the game folder, for example on your desktop, and start the game with it.
+- uninstall.bat removes the shortcut, and removes steam_appid.txt if it still
+  contains only 71260.
 
 Uninstall
 - Run uninstall.bat (same folder options as install). It removes winmm.dll,
@@ -95,6 +113,11 @@ Bug reports
   play until the problem happens, press F10 again ("Logging off"), and send
   SC5_log.txt from the game folder. Turning logging on again adds to the same file. The log records only game keys
   (arrows, Enter, Space, Escape, Tab, S, D) while the game has focus.
+
+Changes in 1.0.5
+- New: install.bat creates a desktop shortcut "Space Channel 5 Part 2 No
+  Launcher" and the steam_appid.txt file, so the game opens without the Steam
+  launcher. uninstall.bat removes them. No changes to the mod itself.
 
 Changes in 1.0.4
 - New: native NVDA speech. When NVDA is running (and JAWS is not), speech goes
